@@ -1,0 +1,18 @@
+# Jan Joseph
+
+> Portfolio of Jan Joseph, a Frontend Web Developer based in Muntinlupa, Philippines. Builds clean, high-performance, and responsive websites for modern businesses.
+
+## Projects
+
+- [Positive Gym - Putatan](https://positive-gym-putatan.pages.dev/): responsive local gym website built with HTML/CSS/JS and deployed on Cloudflare Pages ([source](https://github.com/panchojanjoseph15-bot/positive-gym-putatan))
+
+## Contact
+
+- [GitHub](https://github.com/panchojanjoseph15-bot)
+- [Facebook](https://www.facebook.com/janjoseph.pancho)
+- [Instagram](https://www.instagram.com/satelles_dei.ks/?hl=en)
+- Email: panchojanjoseph15@gmail.com
+
+## Optional
+
+- This site is built with Astro, React and Tailwind CSS from the open-source DarkMinimal template by Andres Hernandez (MIT license), distributed by ThemeWagon.
