@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-const LikeButton = () => {
+interface LikeButtonProps {
+  supabaseUrl: string;
+  supabaseAnonKey: string;
+}
+
+const LikeButton = ({ supabaseUrl, supabaseAnonKey }: LikeButtonProps) => {
   const [likes, setLikes] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+  const [isProcessing, setIsProcessing] = useState(false)
 
   useEffect(() => {
     setIsClient(true);
