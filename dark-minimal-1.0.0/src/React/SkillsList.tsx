@@ -16,20 +16,22 @@ const SkillsList = () => {
   const [openItem, setOpenItem] = useState<string | null>(null);
 
   const skills = {
-    "Web Development": [
-      "Single Page Applications (SPAs)",
-      "Landing pages and business websites",
-      "Portfolio websites",
+    "Full-Stack Development": [
+      "Full-stack web applications with Astro, React, and Supabase",
+      "Database architecture, state management, and data persistence",
+      "Production deployment, live maintenance, and technical SEO",
     ],
-    "Mobile Development": [
-      "Mobile-friendly web apps",
-      "React Native mobile apps",
+    "Frontend & UI Engineering": [
+      "Responsive Single Page Applications (SPAs)",
+      "Modern styling with TailwindCSS and dynamic components",
+      "UI/UX prototyping and layout design using Figma",
     ],
-    "UI/UX Design & Prototyping": [
-      "UI design with Figma & Canva",
-      "UX research & improvements",
-      "Prototyping for websites & mobile apps",
+    "Core Programming & Tools": [
+      "Scripting logic and automation with Python and C++",
+      "Version control and collaboration using Git and GitHub",
+      "Performance optimization for fast-loading web apps",
     ],
+};
   };
 
   const toggleItem = (item: string) => {
