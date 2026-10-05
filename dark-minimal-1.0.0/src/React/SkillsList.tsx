@@ -93,6 +93,6 @@ const SkillsList = () => {
       </ul>
     </div>
   );
-};
+
 
 export default SkillsList;
