@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 interface LikeButtonProps {
   supabaseUrl: string;
@@ -10,34 +11,38 @@ const LikeButton = ({ supabaseUrl, supabaseAnonKey }: LikeButtonProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-
     const storedIsLiked = localStorage.getItem("websiteIsLiked") === "true";
     setIsLiked(storedIsLiked);
 
+    if (!supabaseUrl || !supabaseAnonKey) return;
+
+    const formattedUrl = supabaseUrl.startsWith("http")
+      ? supabaseUrl
+      : `https://${supabaseUrl}`;
+    const supabase = createClient(formattedUrl, supabaseAnonKey);
+
     const fetchLikes = async () => {
       try {
-        const response = await fetch(`${supabaseUrl}/rest/v1/likes?id=eq.portfolio_likes&select=count`, {
-          headers: {
-            "apikey": supabaseAnonKey,
-            "Authorization": `Bearer ${supabaseAnonKey}`
-          }
-        });
-        const data = await response.json();
-        if (data && data.length > 0) {
-          setLikes(data[0].count);
+        const { data, error } = await supabase
+          .from("likes")
+          .select("count")
+          .eq("id", "portfolio_likes")
+          .single();
+
+        if (error) throw error;
+        if (data) {
+          setLikes(data.count);
         }
       } catch (error) {
         console.error("Error fetching likes:", error);
       }
     };
 
-    if (supabaseUrl && supabaseAnonKey) {
-      fetchLikes();
-    }
+    fetchLikes();
   }, [supabaseUrl, supabaseAnonKey]);
 
   const handleLike = async () => {
@@ -54,18 +59,17 @@ const LikeButton = ({ supabaseUrl, supabaseAnonKey }: LikeButtonProps) => {
 
     try {
       setIsProcessing(true);
-      const response = await fetch(`${supabaseUrl}/rest/v1/likes?id=eq.portfolio_likes`, {
-        method: "PATCH",
-        headers: {
-          "apikey": supabaseAnonKey,
-          "Authorization": `Bearer ${supabaseAnonKey}`,
-          "Content-Type": "application/json",
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify({ count: newLikes })
-      });
+      const formattedUrl = supabaseUrl.startsWith("http")
+        ? supabaseUrl
+        : `https://${supabaseUrl}`;
+      const supabase = createClient(formattedUrl, supabaseAnonKey);
+      
+      const { error } = await supabase
+        .from("likes")
+        .update({ count: newLikes })
+        .eq("id", "portfolio_likes");
 
-      if (!response.ok) throw new Error("Failed to update likes");
+      if (error) throw error;
     } catch (error) {
       console.error("Error updating likes:", error);
       setLikes(previousLikes);
