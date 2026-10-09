@@ -1,51 +1,64 @@
 ---
-
 interface Project {
   title: string;
-  image: string;
-  link: string;
-  preview: string;
+  image?: string;
+  link?: string;
+  preview?: string;
   status: string;
+  featured?: boolean;
+  tags: string[];
   description: string;
+  isCtaCard?: boolean;
 }
 
 const projects: Project[] = [
   {
-    title: "Upcoming Project 1",
-    image: "https://placehold.co/600x400/1a1a1a/ffffff?text=Upcoming+Project+1",
-    link: "https://github.com/panchojanjoseph15-bot",
-    preview: "#projects",
-    status: "Coming Soon",
-    description: "Upcoming project slot.",
+    title: "Straight to the Top",
+    image: "/straight-to-the-top-preview.png",
+    link: "https://github.com/panchojanjoseph15-bot/Straight-to-the-top",
+    preview: "https://straight-to-the-top.pages.dev/",
+    status: "Live Demo & App",
+    featured: true,
+    tags: ["React", "TypeScript", "Tailwind CSS", "Electron", "PWA"],
+    description:
+      "GitHub-inspired habit tracker & daily reflection journal. Features custom 4-state visual commit grids, daily retrospectives, tomorrow presets, and a cross-platform desktop application (.exe).",
   },
   {
-    title: "Upcoming Project 2",
-    image: "https://placehold.co/600x400/1a1a1a/ffffff?text=Upcoming+Project+2",
-    link: "https://github.com/panchojanjoseph15-bot",
-    preview: "#projects",
-    status: "Coming Soon",
-    description: "Upcoming project slot.",
+    title: "Positive Gym Putatan",
+    image: "/positive-gym-logo.jpg",
+    link: "https://github.com/panchojanjoseph15-bot/positive-gym-putatan",
+    preview: "https://github.com/panchojanjoseph15-bot/positive-gym-putatan",
+    status: "Client Website",
+    featured: false,
+    tags: ["Next.js", "React", "Tailwind CSS", "Local SEO"],
+    description:
+      "Modern, responsive web presence and membership platform built for Positive Gym in Putatan, Muntinlupa. Built with Next.js 14, real pricing tiers, workout schedule guides, and local SEO.",
   },
   {
-    title: "Upcoming Project 3",
-    image: "https://placehold.co/600x400/1a1a1a/ffffff?text=Upcoming+Project+3",
-    link: "https://github.com/panchojanjoseph15-bot",
-    preview: "#projects",
-    status: "Coming Soon",
-    description: "Upcoming project slot.",
+    title: "Developer Portfolio & Hub",
+    image: "/og.image.png",
+    link: "https://github.com/panchojanjoseph15-bot/Portfolio",
+    preview: "https://portfolio-cqt.pages.dev/",
+    status: "Live Deployment",
+    featured: false,
+    tags: ["Astro", "React", "Tailwind CSS", "Cloudflare Pages"],
+    description:
+      "Minimalist developer portfolio engineered for top-tier speed and responsiveness. Features WebGL letter glitch canvas, dynamic Spotify widget integration, and Cloudflare Pages edge deployment.",
   },
   {
-    title: "Upcoming Project 4",
-    image: "https://placehold.co/600x400/1a1a1a/ffffff?text=Upcoming+Project+4",
-    link: "https://github.com/panchojanjoseph15-bot",
-    preview: "#projects",
-    status: "Coming Soon",
-    description: "Upcoming project slot.",
+    title: "Your Next Big Project",
+    link: "#contact",
+    preview: "#contact",
+    status: "Open for Work",
+    featured: false,
+    tags: ["Full-Stack", "Frontend", "UI/UX", "API Integration"],
+    description:
+      "Have an innovative idea, MVP, or business website you need brought to life? I'm available for freelance contracts, full-stack web builds, and frontend engineering.",
+    isCtaCard: true,
   },
 ];
 
-// Only real links open in a new tab; "Coming Soon" slots just stay on the page
-const isExternal = (url: string) => /^https?:\/\//.test(url);
+const isExternal = (url?: string) => (url ? /^https?:\/\//.test(url) : false);
 ---
 
 <section
@@ -53,84 +66,168 @@ const isExternal = (url: string) => /^https?:\/\//.test(url);
   class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
 >
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">My work</h2>
-    <h3 class="text-4xl md:text-5xl font-medium mb-8">Projects</h3>
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Selected Work</h2>
+        <h3 class="text-4xl md:text-5xl font-medium">Featured Projects</h3>
+      </div>
+      <p class="text-sm md:text-base text-[var(--white-icon)] max-w-md">
+        Real-world web applications and production solutions built with modern frameworks and clean architecture.
+      </p>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
         projects.map((project) => (
-          <div class="group">
-            <a
-              href={project.preview}
-              target={isExternal(project.preview) ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              class="block"
-            >
-              <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div class="flex items-center px-3">
-                <div class="flex-grow">
-                  <h4 class="text-2xl font-semibold">{project.title}</h4>
-                  <span class="py-1 text-sm text-[var(--white-icon)]">
-                    {project.status}
-                  </span>
-                  <p class="text-sm text-[var(--white-icon)] mt-1 pr-4">
+          <div class={`group flex flex-col rounded-2xl bg-[#1414149c] border transition-all duration-300 overflow-hidden hover:shadow-2xl hover:shadow-[var(--sec)]/10 ${
+            project.featured 
+              ? "border-[var(--sec)]/40 hover:border-[var(--sec)]" 
+              : "border-[var(--white-icon-tr)] hover:border-[var(--sec)]/50"
+          }`}>
+            {project.isCtaCard ? (
+              <div class="flex flex-col justify-between p-7 h-full min-h-[360px] bg-gradient-to-br from-[#181524] via-[#141414] to-[#101010]">
+                <div>
+                  <div class="flex items-center justify-between mb-6">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                      <span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      {project.status}
+                    </span>
+                    <div class="size-10 rounded-xl bg-[#ffffff08] border border-[var(--white-icon-tr)] flex items-center justify-center text-[var(--sec)]">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+                        <path fill-rule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 0 1 .75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 0 1 9.75 22.5a.75.75 0 0 1-.75-.75v-4.131A15.838 15.838 0 0 1 6.382 15H2.25a.75.75 0 0 1-.75-.75 6.75 6.75 0 0 1 7.815-6.666ZM15 6.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" clip-rule="evenodd" />
+                        <path d="M5.26 17.242a.75.75 0 1 0-.897-1.203 5.243 5.243 0 0 0-2.05 3.956.75.75 0 0 0 .9.814 5.244 5.244 0 0 0 2.047-3.567Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <h4 class="text-2xl font-semibold mb-3 text-white group-hover:text-[var(--sec)] transition-colors">
+                    {project.title}
+                  </h4>
+                  <p class="text-sm text-[var(--white-icon)] leading-relaxed mb-6">
                     {project.description}
                   </p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    {project.tags.map((tag) => (
+                      <span class="text-xs px-2.5 py-1 rounded-lg bg-[#202020] text-[var(--white-icon)] border border-[#ffffff0a] font-mono">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <div class="flex gap-2 ml-auto">
+                <div class="pt-4 border-t border-[#ffffff0a]">
                   <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={project.link}
-                    aria-label="GitHub"
-                    class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+                    href="#contact"
+                    class="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-[var(--sec)] text-[#101010] font-semibold text-sm hover:opacity-90 transition-all hover:scale-[1.01]"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="size-7"
-                    >
-                      <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
-                    </svg>
-                  </a>
-                  <a
-                    target={isExternal(project.preview) ? "_blank" : undefined}
-                    rel="noopener noreferrer"
-                    href={project.preview}
-                    aria-label="Preview"
-                    class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="size-7"
-                    >
-                      <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z" />
+                    <span>Start a Conversation</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4">
+                      <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.09a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-4.16H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
                     </svg>
                   </a>
                 </div>
               </div>
-            </a>
+            ) : (
+              <div class="flex flex-col h-full">
+                <div class="relative w-full h-52 sm:h-64 overflow-hidden bg-[#181818]">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent opacity-80"></div>
+                  <div class="absolute top-3 left-3 flex items-center gap-2">
+                    {project.featured && (
+                      <span class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-[var(--sec)] text-[#101010] shadow-md">
+                        ★ Featured
+                      </span>
+                    )}
+                    <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-[#101010]/80 backdrop-blur-md border border-[var(--white-icon-tr)] text-[var(--white)]">
+                      {project.status}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex flex-col flex-grow p-6">
+                  <h4 class="text-2xl font-semibold mb-2 group-hover:text-[var(--sec)] transition-colors">
+                    {project.title}
+                  </h4>
+                  <p class="text-sm text-[var(--white-icon)] leading-relaxed mb-4 flex-grow">
+                    {project.description}
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    {project.tags.map((tag) => (
+                      <span class="text-xs px-2.5 py-1 rounded-lg bg-[#1f1f1f] text-[var(--white-icon)] border border-[#ffffff0a] font-mono">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div class="flex items-center gap-2 pt-4 border-t border-[#ffffff0a] mt-auto">
+                    {project.preview && (
+                      <a
+                        href={project.preview}
+                        target={isExternal(project.preview) ? "_blank" : undefined}
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--sec)] text-[#101010] text-xs font-semibold hover:opacity-90 hover:scale-[1.02] transition-all"
+                      >
+                        <span>Live Demo</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          class="size-3.5"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h4a.75.75 0 0 1 0 1.5h-4Z"
+                            clip-rule="evenodd"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </a>
+                    )}
+
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target={isExternal(project.link) ? "_blank" : undefined}
+                        rel="noopener noreferrer"
+                        aria-label={`Source code for ${project.title}`}
+                        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#1b1b1b] border border-[var(--white-icon-tr)] text-xs text-[var(--white)] hover:text-white hover:border-white transition-all ml-auto"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="size-3.5"
+                        >
+                          <path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z" />
+                        </svg>
+                        <span>GitHub</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ))
       }
     </div>
+
     <a
       target="_blank"
       rel="noopener noreferrer"
       href="https://github.com/panchojanjoseph15-bot"
-      aria-label="GitHub"
-      class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-105"
+      aria-label="GitHub Profile"
+      class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-[1.02]"
     >
-      <span class="md:text-lg text-md">More projects on</span>
+      <span class="md:text-lg text-md">More repositories on</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

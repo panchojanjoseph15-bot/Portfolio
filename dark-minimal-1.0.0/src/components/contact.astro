@@ -88,16 +88,24 @@ const socials = [
           ></textarea>
           <button
             type="submit"
-            class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)]"
+            id="submit-btn"
+            class="px-6 py-3 bg-[var(--sec)] text-[#101010] font-semibold rounded-xl hover:opacity-90 hover:scale-[1.01] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Submit
+            <span>Send Message</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4">
+              <path d="M3.105 2.288a.75.75 0 0 0-.826.95l1.414 4.926A1.5 1.5 0 0 0 5.135 9.25h6.115a.75.75 0 0 1 0 1.5H5.135a1.5 1.5 0 0 0-1.442 1.086l-1.414 4.926a.75.75 0 0 0 .826.95 28.897 28.897 0 0 0 15.293-7.155.75.75 0 0 0 0-1.114A28.897 28.897 0 0 0 3.105 2.288Z" />
+            </svg>
           </button>
         </form>
         <div
           id="form-message"
-          class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg"
+          class="hidden flex-col items-center justify-center p-8 bg-[#141414] border border-emerald-500/30 rounded-2xl text-center space-y-2"
         >
-          ✅ Thank you for your message!
+          <span class="text-3xl">✨</span>
+          <p class="text-white font-medium text-lg">Thank you for reaching out!</p>
+          <p class="text-sm text-[var(--white-icon)]">
+            Your message was sent successfully. I'll get back to you shortly.
+          </p>
         </div>
       </div>
     </div>
@@ -107,9 +115,14 @@ const socials = [
 <script type="module" is:inline>
   const form = document.getElementById("contact-form");
   const formMessage = document.getElementById("form-message");
+  const submitBtn = document.getElementById("submit-btn");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = "<span>Sending message...</span>";
+    }
     const formData = new FormData(form);
 
     try {
@@ -122,14 +135,23 @@ const socials = [
         form.reset();
         form.style.display = "none";
         formMessage.classList.remove("hidden");
+        formMessage.classList.add("flex");
       } else {
         const data = await response.json();
         console.error("Error response:", data);
-        alert("There was a problem sending your message.");
+        alert("There was a problem sending your message. Please try emailing directly.");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = "<span>Send Message</span>";
+        }
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("There was a problem sending your message.");
+      alert("There was a problem sending your message. Please try emailing directly.");
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "<span>Send Message</span>";
+      }
     }
   });
 </script>

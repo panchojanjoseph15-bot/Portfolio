@@ -5,9 +5,8 @@ interface Props {
 
 const { title } = Astro.props;
 
-// TODO: set this to your portfolio's final URL (your *.pages.dev address or custom domain).
-// No trailing slash needed. It feeds the canonical link, social-share tags and structured data.
-const SITE_URL = "https://your-portfolio.pages.dev";
+// Final live URL for canonical link, social-share tags, and structured data.
+const SITE_URL = "https://portfolio-cqt.pages.dev";
 const siteUrl = SITE_URL.replace(/\/+$/, "");
 
 const jsonLd = {
@@ -23,8 +22,13 @@ const jsonLd = {
     "https://www.instagram.com/satelles_dei.ks/?hl=en",
   ],
   jobTitle: "Full-Stack Web Developer",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Muntinlupa",
+    addressCountry: "Philippines",
+  },
   description:
-    "Frontend Web Developer building clean, high-performance, and responsive websites for modern businesses.",
+    "Full-Stack Web Developer building clean, high-performance, and responsive web applications and local business solutions.",
 };
 ---
 
@@ -32,10 +36,10 @@ const jsonLd = {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{title} | Portfolio</title>
+    <title>{title} | Full-Stack Web Developer</title>
     <meta
       name="description"
-      content="Jan Joseph Reyes- Full-Stack Web Developer building clean, high-performance, and responsive websites for modern businesses."
+      content="Jan Joseph Reyes — Full-Stack Web Developer based in Muntinlupa, Philippines. Building clean, high-performance, and responsive web applications for modern businesses."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="WizVw-LApQ_OS4UylWw4XXCDVGU2HETs5ZniGolUQ5A" />
@@ -50,13 +54,14 @@ const jsonLd = {
       crossorigin="anonymous"
     />
 
+    <!-- Open Graph / Facebook -->
     <meta
       property="og:title"
       content="Jan Joseph Reyes | Full-Stack Web Developer"
     />
     <meta
       property="og:description"
-      content="Portfolio of Jan Joseph Reyes, Full-Stack Web Developer specializing in clean, fast, and responsive websites."
+      content="Portfolio of Jan Joseph Reyes, Full-Stack Web Developer specializing in clean, fast, and responsive web applications."
     />
     <meta
       property="og:image"
@@ -68,6 +73,12 @@ const jsonLd = {
       property="og:site_name"
       content="Jan Joseph Reyes Portfolio"
     />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jan Joseph Reyes | Full-Stack Web Developer" />
+    <meta name="twitter:description" content="Portfolio of Jan Joseph Reyes, Full-Stack Web Developer specializing in clean, fast, and responsive web applications." />
+    <meta name="twitter:image" content={`${siteUrl}/og.image.png`} />
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

@@ -7,6 +7,14 @@ import SkillsList from "../React/SkillsList.tsx";
 <section class="text-[var(--white)] mt-12 md:mt-0" id="home">
   <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
     <div class="text-left space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1414149c] border border-[var(--white-icon-tr)] text-xs text-[var(--white-icon)]">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="font-medium text-white">Available for new projects</span>
+        <span class="text-[var(--white-icon)] hidden sm:inline">• Muntinlupa, PH</span>
+      </div>
       <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white">
         Hi, I'm Jan Joseph Reyes
       </p>
@@ -25,10 +33,52 @@ import SkillsList from "../React/SkillsList.tsx";
           > development.
         </p>
       </div>
-      <div class="flex justify-start gap-2 pt-3 md:pt-6">
+
+      <div class="flex flex-wrap items-center gap-3 pt-3 md:pt-6">
         <a
-          target="_blank"
-          href="https://github.com/panchojanjoseph15-bot"
+          href="#projects"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--sec)] text-[#101010] font-semibold text-sm hover:opacity-90 hover:scale-[1.02] transition-all duration-200 shadow-lg shadow-[var(--sec)]/20"
+        >
+          <span>View Projects</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 1 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)] border border-[var(--white-icon-tr)] text-[var(--white)] font-medium text-sm hover:scale-[1.02] transition-all duration-200"
+        >
+          <span>Contact Me</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="w-4 h-4 text-[var(--sec)]"
+          >
+            <path
+              d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.162V6a2 2 0 0 0-2-2H3Z"
+            ></path>
+            <path
+              d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z"
+            ></path>
+          </svg>
+        </a>
+
+        <div class="h-8 w-px bg-[#ffffff15] hidden sm:block mx-1"></div>
+
+        <div class="flex items-center gap-2">
+          <a
+            target="_blank"
+            href="https://github.com/panchojanjoseph15-bot"
           rel="noopener noreferrer"
           aria-label="GitHub"
           class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
