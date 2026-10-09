@@ -27,7 +27,7 @@ const projects: Project[] = [
     title: "Positive Gym Putatan",
     image: "/positive-gym-logo.jpg",
     link: "https://github.com/panchojanjoseph15-bot/positive-gym-putatan",
-    preview: "https://github.com/panchojanjoseph15-bot/positive-gym-putatan",
+    preview: "https://positive-gym-putatan.pages.dev/",
     status: "Client Website",
     featured: false,
     tags: ["Next.js", "React", "Tailwind CSS", "Local SEO"],
@@ -171,7 +171,7 @@ const isExternal = (url?: string) => (url ? /^https?:\/\//.test(url) : false);
                         rel="noopener noreferrer"
                         class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--sec)] text-[#101010] text-xs font-semibold hover:opacity-90 hover:scale-[1.02] transition-all"
                       >
-                        <span>Live Demo</span>
+                        <span>{project.status === "Client Website" ? "Visit Website" : "Live Demo"}</span>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
