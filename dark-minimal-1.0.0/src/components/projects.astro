@@ -1,243 +1,245 @@
 ---
 interface Project {
   title: string;
-  image?: string;
-  link?: string;
-  preview?: string;
-  status: string;
-  featured?: boolean;
-  tags: string[];
+  category: "fullstack" | "client";
+  badge: string;
+  badgeType: "flagship" | "client" | "ecosystem" | "cta";
+  subBadge?: string;
   description: string;
-  isCtaCard?: boolean;
+  tags: string[];
+  demoUrl?: string;
+  demoLabel?: string;
+  githubUrl?: string;
+  isCta?: boolean;
 }
 
 const projects: Project[] = [
   {
     title: "Straight to the Top",
-    image: "/straight-to-the-top-preview.png",
-    link: "https://github.com/panchojanjoseph15-bot/Straight-to-the-top",
-    preview: "https://straight-to-the-top.pages.dev/",
-    status: "Live Demo & App",
-    featured: true,
-    tags: ["React", "TypeScript", "Tailwind CSS", "Electron", "PWA"],
+    category: "fullstack",
+    badge: "★ Flagship App",
+    badgeType: "flagship",
+    subBadge: "Cross-Platform (.exe & Web)",
     description:
-      "GitHub-inspired habit tracker & daily reflection journal. Features custom 4-state visual commit grids, daily retrospectives, tomorrow presets, and a cross-platform desktop application (.exe).",
+      "GitHub-inspired habit tracking platform & daily reflection journal. Engineered with custom 4-state visual commit graphs, daily retrospectives, tomorrow presets, and desktop packaging.",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Electron", "PWA"],
+    demoUrl: "https://straight-to-the-top.pages.dev/",
+    demoLabel: "Live Demo ↗",
+    githubUrl: "https://github.com/panchojanjoseph15-bot/Straight-to-the-top",
   },
   {
     title: "Positive Gym Putatan",
-    image: "/positive-gym-logo.jpg",
-    link: "https://github.com/panchojanjoseph15-bot/positive-gym-putatan",
-    preview: "https://positive-gym-putatan.pages.dev/",
-    status: "Client Website",
-    featured: false,
-    tags: ["Next.js", "React", "Tailwind CSS", "Local SEO"],
+    category: "client",
+    badge: "Client Production",
+    badgeType: "client",
+    subBadge: "Local SEO Optimized",
     description:
-      "Modern, responsive web presence and membership platform built for Positive Gym in Putatan, Muntinlupa. Built with Next.js 14, real pricing tiers, workout schedule guides, and local SEO.",
+      "Modern, responsive web platform built for a commercial fitness establishment in Muntinlupa. Includes dynamic membership pricing tiers, trainer schedules, and tailored local search rank optimization.",
+    tags: ["Next.js 14", "React", "Tailwind CSS", "Local SEO"],
+    demoUrl: "https://positive-gym-putatan.pages.dev/",
+    demoLabel: "Visit Website ↗",
+    githubUrl: "https://github.com/panchojanjoseph15-bot/positive-gym-putatan",
   },
   {
     title: "Developer Portfolio & Hub",
-    image: "/og.image.png",
-    link: "https://github.com/panchojanjoseph15-bot/Portfolio",
-    preview: "https://portfolio-cqt.pages.dev/",
-    status: "Live Deployment",
-    featured: false,
-    tags: ["Astro", "React", "Tailwind CSS", "Cloudflare Pages"],
+    category: "fullstack",
+    badge: "Active Ecosystem",
+    badgeType: "ecosystem",
+    subBadge: "Cloudflare Edge",
     description:
-      "Minimalist developer portfolio engineered for top-tier speed and responsiveness. Features WebGL letter glitch canvas, dynamic Spotify widget integration, and Cloudflare Pages edge deployment.",
+      "Personal portfolio engine featuring WebGL canvas glitch shaders, real-time Supabase RPC synchronization, and edge cloud caching.",
+    tags: ["Astro", "React", "Supabase", "Tailwind CSS"],
+    demoUrl: "https://portfolio-cqt.pages.dev/",
+    demoLabel: "Live Site ↗",
+    githubUrl: "https://github.com/panchojanjoseph15-bot/Portfolio",
   },
   {
-    title: "Your Next Big Project",
-    link: "#contact",
-    preview: "#contact",
-    status: "Open for Work",
-    featured: false,
-    tags: ["Full-Stack", "Frontend", "UI/UX", "API Integration"],
+    title: "Have a project in mind?",
+    category: "client",
+    badge: "Accepting Contracts",
+    badgeType: "cta",
     description:
-      "Have an innovative idea, MVP, or business website you need brought to life? I'm available for freelance contracts, full-stack web builds, and frontend engineering.",
-    isCtaCard: true,
+      "Whether you need a high-converting web application, client website, or complete full-stack MVP, let's bring it to reality with clean architecture and blazing speed.",
+    tags: ["Full-Stack", "Frontend", "UI/UX", "API Integration"],
+    isCta: true,
   },
 ];
-
-const isExternal = (url?: string) => (url ? /^https?:\/\//.test(url) : false);
 ---
 
-<section
-  id="projects"
-  class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
->
-  <div class="max-w-5xl mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-      <div>
-        <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Selected Work</h2>
-        <h3 class="text-4xl md:text-5xl font-medium">Featured Projects</h3>
-      </div>
-      <p class="text-sm md:text-base text-[var(--white-icon)] max-w-md">
-        Real-world web applications and production solutions built with modern frameworks and clean architecture.
-      </p>
+<section id="projects" class="max-w-5xl mx-auto px-4 py-12 space-y-8 relative z-10">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <div>
+      <span class="text-xs font-mono text-[#a476ff] uppercase tracking-wider block mb-1">Selected Work</span>
+      <h2 class="text-3xl font-bold text-white tracking-tight">Production Showcases</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {
-        projects.map((project) => (
-          <div class={`group flex flex-col rounded-2xl bg-[#1414149c] border transition-all duration-300 overflow-hidden hover:shadow-2xl hover:shadow-[var(--sec)]/10 ${
-            project.featured 
-              ? "border-[var(--sec)]/40 hover:border-[var(--sec)]" 
-              : "border-[var(--white-icon-tr)] hover:border-[var(--sec)]/50"
-          }`}>
-            {project.isCtaCard ? (
-              <div class="flex flex-col justify-between p-7 h-full min-h-[360px] bg-gradient-to-br from-[#181524] via-[#141414] to-[#101010]">
-                <div>
-                  <div class="flex items-center justify-between mb-6">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-                      <span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                      {project.status}
+    <!-- Filter Tabs -->
+    <div class="flex items-center gap-1.5 p-1 bg-white/5 rounded-2xl border border-white/5 text-xs font-medium self-start sm:self-auto" id="project-filter-group">
+      <button type="button" class="filter-btn active px-3 py-1.5 rounded-xl bg-[#a476ff] text-black font-semibold transition-all cursor-pointer" data-filter="all">All (4)</button>
+      <button type="button" class="filter-btn px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition-all cursor-pointer" data-filter="fullstack">Full-Stack</button>
+      <button type="button" class="filter-btn px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition-all cursor-pointer" data-filter="client">Client Work</button>
+    </div>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
+    {
+      projects.map((project) => (
+        <div class="project-item bento-card rounded-3xl overflow-hidden group flex flex-col justify-between" data-category={project.category}>
+          {project.isCta ? (
+            <div class="p-7 sm:p-8 flex flex-col justify-between h-full bg-gradient-to-br from-[#1c182c] via-[#141520] to-[#0c0d14] border-purple-500/30">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                    <span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    {project.badge}
+                  </span>
+                  <div class="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#a476ff]">
+                    🚀
+                  </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white mb-2">{project.title}</h3>
+                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div class="grid grid-cols-2 gap-2 mt-6 font-mono text-xs text-slate-300">
+                  <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span> Fast delivery
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span> Clean code
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span> SEO optimized
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span> 100% Responsive
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-6 mt-6 border-t border-white/10">
+                <a 
+                  href="#contact" 
+                  class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#a476ff] to-[#8b5cf6] text-black font-bold text-xs hover:opacity-90 transition-all hover:scale-[1.01] shadow-lg shadow-[#a476ff]/20"
+                >
+                  <span>Start a Conversation</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div class="flex flex-col justify-between h-full">
+              <div>
+                <!-- Project Visual Header -->
+                <div class="h-44 sm:h-52 bg-gradient-to-br from-[#191b2b] via-[#12131d] to-[#0c0d14] relative p-6 flex flex-col justify-between overflow-hidden border-b border-white/5">
+                  <div class="flex items-center justify-between relative z-10">
+                    <span class={`text-[11px] font-mono px-2.5 py-1 rounded-full font-semibold ${
+                      project.badgeType === "flagship"
+                        ? "bg-[#a476ff]/20 text-[#a476ff] border border-[#a476ff]/30"
+                        : project.badgeType === "client"
+                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                        : "bg-purple-500/20 text-[#a476ff] border border-purple-500/30"
+                    }`}>
+                      {project.badge}
                     </span>
-                    <div class="size-10 rounded-xl bg-[#ffffff08] border border-[var(--white-icon-tr)] flex items-center justify-center text-[var(--sec)]">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
-                        <path fill-rule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 0 1 .75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 0 1 9.75 22.5a.75.75 0 0 1-.75-.75v-4.131A15.838 15.838 0 0 1 6.382 15H2.25a.75.75 0 0 1-.75-.75 6.75 6.75 0 0 1 7.815-6.666ZM15 6.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" clip-rule="evenodd" />
-                        <path d="M5.26 17.242a.75.75 0 1 0-.897-1.203 5.243 5.243 0 0 0-2.05 3.956.75.75 0 0 0 .9.814 5.244 5.244 0 0 0 2.047-3.567Z" />
-                      </svg>
+                    {project.subBadge && (
+                      <span class="text-xs font-mono text-slate-400 bg-black/40 px-2.5 py-1 rounded-full border border-white/10">
+                        {project.subBadge}
+                      </span>
+                    )}
+                  </div>
+
+                  <!-- Graphic Motif -->
+                  <div class="my-auto text-center space-y-2 relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 shadow-2xl backdrop-blur-md">
+                      <span class="text-[#a476ff] text-xs">◆</span>
+                      <span class="text-xs font-mono text-slate-200 font-medium">{project.title}</span>
                     </div>
                   </div>
-                  <h4 class="text-2xl font-semibold mb-3 text-white group-hover:text-[var(--sec)] transition-colors">
-                    {project.title}
-                  </h4>
-                  <p class="text-sm text-[var(--white-icon)] leading-relaxed mb-6">
-                    {project.description}
-                  </p>
-                  <div class="flex flex-wrap gap-2 mb-6">
+
+                  <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-[#a476ff]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#a476ff]/20 transition-all duration-500"></div>
+                </div>
+
+                <!-- Project Body -->
+                <div class="p-6 sm:p-7 space-y-4">
+                  <div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-[#a476ff] transition-colors flex items-center justify-between">
+                      <span>{project.title}</span>
+                      <svg class="w-4 h-4 text-slate-500 group-hover:text-[#a476ff] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <!-- Tech Badges -->
+                  <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
                     {project.tags.map((tag) => (
-                      <span class="text-xs px-2.5 py-1 rounded-lg bg-[#202020] text-[var(--white-icon)] border border-[#ffffff0a] font-mono">
+                      <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div class="pt-4 border-t border-[#ffffff0a]">
-                  <a
-                    href="#contact"
-                    class="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-[var(--sec)] text-[#101010] font-semibold text-sm hover:opacity-90 transition-all hover:scale-[1.01]"
+              </div>
+
+              <!-- Action Links -->
+              <div class="p-6 pt-0 flex items-center gap-3">
+                {project.demoUrl && (
+                  <a 
+                    href={project.demoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="flex-1 text-center py-2.5 px-4 rounded-xl bg-[#a476ff] text-black font-semibold text-xs hover:opacity-90 transition-all hover:scale-[1.01]"
                   >
-                    <span>Start a Conversation</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4">
-                      <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.09a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-4.16H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
-                    </svg>
+                    {project.demoLabel || "Live Demo ↗"}
                   </a>
-                </div>
+                )}
+                {project.githubUrl && (
+                  <a 
+                    href={project.githubUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all"
+                  >
+                    GitHub
+                  </a>
+                )}
               </div>
-            ) : (
-              <div class="flex flex-col h-full">
-                <div class="relative w-full h-52 sm:h-64 overflow-hidden bg-[#181818]">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent opacity-80"></div>
-                  <div class="absolute top-3 left-3 flex items-center gap-2">
-                    {project.featured && (
-                      <span class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-[var(--sec)] text-[#101010] shadow-md">
-                        ★ Featured
-                      </span>
-                    )}
-                    <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-[#101010]/80 backdrop-blur-md border border-[var(--white-icon-tr)] text-[var(--white)]">
-                      {project.status}
-                    </span>
-                  </div>
-                </div>
-
-                <div class="flex flex-col flex-grow p-6">
-                  <h4 class="text-2xl font-semibold mb-2 group-hover:text-[var(--sec)] transition-colors">
-                    {project.title}
-                  </h4>
-                  <p class="text-sm text-[var(--white-icon)] leading-relaxed mb-4 flex-grow">
-                    {project.description}
-                  </p>
-
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    {project.tags.map((tag) => (
-                      <span class="text-xs px-2.5 py-1 rounded-lg bg-[#1f1f1f] text-[var(--white-icon)] border border-[#ffffff0a] font-mono">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div class="flex items-center gap-2 pt-4 border-t border-[#ffffff0a] mt-auto">
-                    {project.preview && (
-                      <a
-                        href={project.preview}
-                        target={isExternal(project.preview) ? "_blank" : undefined}
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--sec)] text-[#101010] text-xs font-semibold hover:opacity-90 hover:scale-[1.02] transition-all"
-                      >
-                        <span>{project.status === "Client Website" ? "Visit Website" : "Live Demo"}</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          class="size-3.5"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h4a.75.75 0 0 1 0 1.5h-4Z"
-                            clip-rule="evenodd"
-                          />
-                          <path
-                            fill-rule="evenodd"
-                            d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </a>
-                    )}
-
-                    {project.link && (
-                      <a
-                        href={project.link}
-                        target={isExternal(project.link) ? "_blank" : undefined}
-                        rel="noopener noreferrer"
-                        aria-label={`Source code for ${project.title}`}
-                        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#1b1b1b] border border-[var(--white-icon-tr)] text-xs text-[var(--white)] hover:text-white hover:border-white transition-all ml-auto"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          class="size-3.5"
-                        >
-                          <path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z" />
-                        </svg>
-                        <span>GitHub</span>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        ))
-      }
-    </div>
-
-    <a
-      target="_blank"
-      rel="noopener noreferrer"
-      href="https://github.com/panchojanjoseph15-bot"
-      aria-label="GitHub Profile"
-      class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-[1.02]"
-    >
-      <span class="md:text-lg text-md">More repositories on</span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="size-6"
-      >
-        <path
-          d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"
-        ></path>
-      </svg>
-    </a>
+            </div>
+          )}
+        </div>
+      ))
+    }
   </div>
 </section>
+
+<script is:inline>
+  // Project Filter Tabs logic
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectItems = document.querySelectorAll('.project-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-[#a476ff]', 'text-black', 'font-semibold');
+        b.classList.add('text-slate-400');
+      });
+      btn.classList.add('bg-[#a476ff]', 'text-black', 'font-semibold');
+      btn.classList.remove('text-slate-400');
+
+      const filter = btn.getAttribute('data-filter');
+      projectItems.forEach(item => {
+        const cat = item.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

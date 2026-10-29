@@ -33,7 +33,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <title>{title} | Full-Stack Web Developer</title>
@@ -83,8 +83,108 @@ const jsonLd = {
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body class="bg-[--background] sm:px-28 lg:px-20 px-9">
+  <body class="bg-[#090a0f] text-[#f1f5f9] selection:bg-[#a476ff] selection:text-black antialiased relative min-h-screen">
+    <!-- Ambient Cursor Spotlight -->
+    <div id="cursor-spotlight"></div>
+    <!-- Ambient Light Mesh Background -->
+    <div class="ambient-mesh"></div>
+
     <slot />
+
+    <!-- Command Palette Modal (Cmd + K / Ctrl + K) -->
+    <div id="cmd-k-modal" class="fixed inset-0 z-[200] bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+      <div class="bento-card rounded-2xl w-full max-w-lg p-4 shadow-2xl border border-white/20 bg-[#0f1118]">
+        <div class="flex items-center gap-3 px-3 py-2 border-b border-white/10">
+          <svg class="w-4 h-4 text-[#a476ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input 
+            id="cmd-input" 
+            type="text" 
+            placeholder="Search projects, links, quick actions..." 
+            class="w-full bg-transparent text-white placeholder-slate-500 text-xs focus:outline-none"
+          />
+          <kbd class="px-1.5 py-0.5 text-[10px] bg-white/10 rounded text-slate-400 font-mono">ESC</kbd>
+        </div>
+
+        <div class="py-2 text-xs space-y-1" id="cmd-results">
+          <button class="cmd-item w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-white/10 transition-colors text-slate-200" onclick="window.location.href='#projects'; window.toggleCmdK();">
+            <span class="flex items-center gap-2">📂 Jump to Straight to the Top</span>
+            <span class="text-[10px] font-mono text-slate-500">Project</span>
+          </button>
+          <button class="cmd-item w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-white/10 transition-colors text-slate-200" onclick="window.location.href='#projects'; window.toggleCmdK();">
+            <span class="flex items-center gap-2">🏋️ Jump to Positive Gym Putatan</span>
+            <span class="text-[10px] font-mono text-slate-500">Client</span>
+          </button>
+          <button class="cmd-item w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-white/10 transition-colors text-slate-200" onclick="window.location.href='#stack'; window.toggleCmdK();">
+            <span class="flex items-center gap-2">⚡ View Technical Stack</span>
+            <span class="text-[10px] font-mono text-slate-500">Section</span>
+          </button>
+          <button class="cmd-item w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-white/10 transition-colors text-slate-200" onclick="window.copyEmail(); window.toggleCmdK();">
+            <span class="flex items-center gap-2">📋 Copy Email Address</span>
+            <span class="text-[10px] font-mono text-slate-500">Action</span>
+          </button>
+          <button class="cmd-item w-full flex items-center justify-between p-2.5 rounded-xl text-left hover:bg-white/10 transition-colors text-slate-200" onclick="window.open('https://github.com/panchojanjoseph15-bot', '_blank'); window.toggleCmdK();">
+            <span class="flex items-center gap-2">↗ Open GitHub Profile</span>
+            <span class="text-[10px] font-mono text-slate-500">External</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      // 1. Mouse Spotlight tracking across screen & cards
+      window.addEventListener('mousemove', (e) => {
+        const x = e.clientX;
+        const y = e.clientY;
+        document.documentElement.style.setProperty('--mouse-x', `${x}px`);
+        document.documentElement.style.setProperty('--mouse-y', `${y}px`);
+
+        const cards = document.querySelectorAll('.bento-card');
+        cards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const cardX = x - rect.left;
+          const cardY = y - rect.top;
+          card.style.setProperty('--card-mouse-x', `${cardX}px`);
+          card.style.setProperty('--card-mouse-y', `${cardY}px`);
+        });
+      });
+
+      // 2. Command Palette (Cmd + K / Ctrl + K)
+      const cmdModal = document.getElementById('cmd-k-modal');
+      const cmdInput = document.getElementById('cmd-input');
+
+      window.toggleCmdK = function() {
+        if (!cmdModal) return;
+        if (cmdModal.classList.contains('hidden')) {
+          cmdModal.classList.remove('hidden');
+          cmdModal.classList.add('flex');
+          setTimeout(() => cmdInput && cmdInput.focus(), 50);
+        } else {
+          cmdModal.classList.add('hidden');
+          cmdModal.classList.remove('flex');
+        }
+      };
+
+      window.copyEmail = function() {
+        navigator.clipboard.writeText('panchojanjoseph15@gmail.com');
+        alert('Email copied to clipboard: panchojanjoseph15@gmail.com');
+      };
+
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          window.toggleCmdK();
+        }
+        if (e.key === 'Escape' && cmdModal && !cmdModal.classList.contains('hidden')) {
+          window.toggleCmdK();
+        }
+      });
+
+      if (cmdModal) {
+        cmdModal.addEventListener('click', (e) => {
+          if (e.target === cmdModal) window.toggleCmdK();
+        });
+      }
+    </script>
   </body>
 </html>
 
@@ -99,11 +199,16 @@ const jsonLd = {
   }
 
   :root {
-    --background: #101010;
+    --background: #090a0f;
     --sec: #a476ff;
-    --white: #dfdfdf;
-    --white-icon: #f3f3f398;
-    --white-icon-tr: #f3f3f310;
+    --white: #f1f5f9;
+    --white-icon: #94a3b8;
+    --white-icon-tr: rgba(255, 255, 255, 0.08);
+    --card-bg: rgba(18, 20, 29, 0.7);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-border-hover: rgba(164, 118, 255, 0.4);
+    --accent: #a476ff;
+    --accent-glow: rgba(164, 118, 255, 0.25);
   }
 
   * {
@@ -113,38 +218,91 @@ const jsonLd = {
       system-ui,
       sans-serif;
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
   }
 
-  *::selection {
-    background-color: var(--sec);
-    color: var(--background);
+  /* Ambient cursor spotlight */
+  #cursor-spotlight {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(164, 118, 255, 0.07), transparent 80%);
+    transition: opacity 0.3s ease;
+  }
+
+  /* Ambient background mesh */
+  .ambient-mesh {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+      radial-gradient(circle at 15% 20%, rgba(164, 118, 255, 0.09) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.07) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+  }
+
+  /* Bento card styles */
+  .bento-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bento-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: radial-gradient(350px circle at var(--card-mouse-x, -500px) var(--card-mouse-y, -500px), rgba(164, 118, 255, 0.3), transparent 70%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .bento-card:hover::before {
+    opacity: 1;
+  }
+
+  .bento-card:hover {
+    border-color: var(--card-border-hover);
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), 0 0 24px -6px var(--accent-glow);
+  }
+
+  /* Shiny gradient text */
+  .shiny-gradient {
+    background: linear-gradient(135deg, #ffffff 20%, #a476ff 50%, #38bdf8 80%, #ffffff 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine-sweep 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes shine-sweep {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
   }
 
   /* Scrollbar styles */
-
   ::-webkit-scrollbar {
-    width: 15px;
+    width: 8px;
   }
-
   ::-webkit-scrollbar-track {
-    background: var(--container);
-    border-radius: 30px;
+    background: #090a0f;
   }
-
   ::-webkit-scrollbar-thumb {
-    background: var(--background);
-    border-radius: 10px;
+    background: #242938;
+    border-radius: 9999px;
   }
-
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--pink);
-  }
-
-  /* Scrollbar styles for Firefox */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--line) var(--container);
+    background: #3b4256;
   }
 </style>

@@ -1,190 +1,51 @@
 ---
-interface NavItem {
-  label: string;
-  href: string;
-  icon: string;
-}
-
-const navItems: NavItem[] = [
-  {
-    label: "Home",
-    href: "#home",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M21 20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9.48907C3 9.18048 3.14247 8.88917 3.38606 8.69972L11.3861 2.47749C11.7472 2.19663 12.2528 2.19663 12.6139 2.47749L20.6139 8.69972C20.8575 8.88917 21 9.18048 21 9.48907V20ZM19 19V9.97815L12 4.53371L5 9.97815V19H19Z"></path></svg>`,
-  },
-  {
-    label: "Projects",
-    href: "#projects",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M4 5V19H20V7H11.5858L9.58579 5H4ZM12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5Z"></path></svg>`,
-  },
-  {
-    label: "Contact",
-    href: "#contact",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M21.7267 2.95694L16.2734 22.0432C16.1225 22.5716 15.7979 22.5956 15.5563 22.1126L11 13L1.9229 9.36919C1.41322 9.16532 1.41953 8.86022 1.95695 8.68108L21.0432 2.31901C21.5716 2.14285 21.8747 2.43866 21.7267 2.95694ZM19.0353 5.09647L6.81221 9.17085L12.4488 11.4255L15.4895 17.5068L19.0353 5.09647Z"></path></svg>`,
-  },
-];
 ---
 
-<div class="flex justify-center w-full">
-  <nav
-    id="main-nav"
-    class="fixed left-1/2 -translate-x-1/2 z-[100] bg-[var(--background)] border border-1 border-transparent backdrop-blur-xl transition-all duration-500 ease-in-out md:top-6 md:bottom-auto bottom-0 w-[80%]"
-  >
-    <div class="container mx-auto flex justify-center items-center p-3">
-      <ul
-        class="flex w-full justify-between md:space-x-6 md:justify-center md:gap-12 gap-6"
+<header class="fixed top-4 left-0 right-0 z-50 px-4 max-w-5xl mx-auto">
+  <nav class="bento-card rounded-2xl px-5 py-3 flex items-center justify-between shadow-2xl bg-[#0e1017cc] backdrop-blur-xl border border-white/10">
+    <div class="flex items-center gap-3">
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#a476ff] to-[#6366f1] flex items-center justify-center font-bold text-white text-sm shadow-md shadow-[#a476ff]/30 group-hover:scale-105 transition-transform">
+          JR
+        </div>
+        <span class="font-semibold text-sm tracking-tight text-white group-hover:text-[#a476ff] transition-colors hidden sm:inline">
+          Jan Joseph Reyes
+        </span>
+      </a>
+      <div class="h-4 w-px bg-white/10 hidden sm:block"></div>
+      <span class="text-xs text-emerald-400 font-mono hidden md:flex items-center gap-1.5 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Available for hire
+      </span>
+    </div>
+
+    <!-- Center navigation links -->
+    <div class="hidden sm:flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/5 text-xs font-medium">
+      <a href="#about" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-all">About</a>
+      <a href="#projects" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-all">Projects</a>
+      <a href="#stack" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-all">Stack</a>
+      <a href="#contact" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-all">Contact</a>
+    </div>
+
+    <!-- Right Action Hub -->
+    <div class="flex items-center gap-2">
+      <button 
+        type="button" 
+        onclick="window.toggleCmdK()"
+        class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-slate-400 hover:text-white transition-all font-mono cursor-pointer"
+        title="Quick Launcher (Press Cmd+K / Ctrl+K)"
       >
-        {
-          navItems.map((item) => (
-            <li class="flex-1 md:flex-none">
-              <a
-                href={item.href}
-                class="flex flex-col items-center gap-1 text-[var(--white-icon)] transition-colors text-xs md:text-base relative group"
-              >
-                <div class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-all duration-300 scale-0 opacity-0 bg-[#A9FF5B] nav-indicator hidden md:block" />
-                <span class="md:hidden flex items-center justify-center w-6 h-6">
-                  <fragment set:html={item.icon} />
-                </span>
-                <span class="hidden md:inline-block">{item.label}</span>
-                <span class="md:hidden">{item.label}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+        <svg class="w-3.5 h-3.5 text-[#a476ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <span class="hidden md:inline">Search</span>
+        <kbd class="px-1.5 py-0.5 text-[10px] bg-white/10 rounded border border-white/10 text-slate-300 font-mono">⌘K</kbd>
+      </button>
+
+      <a 
+        href="#contact" 
+        class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#a476ff] to-[#8b5cf6] hover:opacity-95 text-black font-semibold text-xs transition-all shadow-md shadow-[#a476ff]/20 hover:scale-105"
+      >
+        Let's Talk
+      </a>
     </div>
   </nav>
-</div>
-<style>
-  nav {
-    transform: translateX(-50%);
-    background-color: var(--background);
-    transition:
-      background-color 0.3s ease,
-      border-radius 0.3s ease,
-      border-color 0.3s ease;
-  }
-
-  nav.scrolling {
-    background-color: var(--component-bg);
-    border-color: #ffffff10;
-    border-radius: 9999px;
-  }
-
-  nav a.active .nav-indicator {
-    transform: translateY(-50%) scale(1);
-    opacity: 1;
-  }
-
-  nav a.active {
-    color: white !important;
-  }
-
-  @media (max-width: 767px) {
-    nav {
-      width: 100% !important;
-      transform: translateX(-50%);
-      bottom: 0;
-      left: 50%;
-      position: fixed;
-      border-radius: 1rem 1rem 0 0;
-      border-color: #ffffff10;
-    }
-
-    nav.scrolling {
-      border-radius: 1rem 1rem 0 0;
-      background-color: var(--component-bg);
-    }
-
-    body {
-      padding-bottom: 70px;
-    }
-  }
-</style>
-
-<script>
-  const nav = document.getElementById("main-nav");
-  const maxScroll = 1000;
-  let rafId: number | null = null;
-
-  function updateNav() {
-    if (window.scrollY > 0) {
-      nav?.classList.add("scrolling");
-
-      const scrollProgress = Math.min(window.scrollY / maxScroll, 1);
-      const easeProgress = 1 - Math.pow(1 - scrollProgress, 4);
-
-      const minWidth = 528;
-      const maxWidth = window.innerWidth * 0.8;
-      const currentWidth = maxWidth - (maxWidth - minWidth) * easeProgress;
-
-      if (window.innerWidth >= 768) {
-        nav?.style.setProperty("width", `${currentWidth}px`);
-      }
-    } else {
-      nav?.classList.remove("scrolling");
-      nav?.style.setProperty("width", "80%");
-    }
-    rafId = null;
-  }
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!rafId) {
-        rafId = requestAnimationFrame(updateNav);
-      }
-    },
-    { passive: true }
-  );
-
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const target = e.currentTarget as HTMLAnchorElement;
-      const targetId = target.getAttribute("href")?.substring(1) || "";
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-        });
-      }
-    });
-  });
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll("nav a[href^='#']");
-    const observerOptions = { threshold: 0.6 };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navLinks.forEach((link) => link.classList.remove("active"));
-          const id = entry.target.getAttribute("id");
-          const activeLink = document.querySelector(`nav a[href="#${id}"]`);
-          if (activeLink) {
-            activeLink.classList.add("active");
-          }
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-    sections.forEach((section) => observer.observe(section));
-  });
-</script>
-
-<style>
-  @media (max-width: 767px) {
-    body {
-      padding-bottom: 70px;
-    }
-  }
-
-  nav a.active {
-    color: white !important;
-  }
-</style>
+</header>
